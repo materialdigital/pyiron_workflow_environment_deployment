@@ -1,0 +1,80 @@
+# Copyright (c) Jupyter Development Team.
+# Distributed under the terms of the Modified BSD License.
+
+# JupyterHub docker-compose configuration file
+version: "2"
+
+services:
+  hub-db:
+    image: postgres:9.5
+    container_name: jupyterhub-db
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      PGDATA: ${DB_VOLUME_CONTAINER}
+    env_file:
+      - secrets/postgres.env
+    volumes:
+      - "db:${DB_VOLUME_CONTAINER}"
+
+  hub:
+    depends_on:
+      - hub-db
+    build:
+      context: .
+      dockerfile: Dockerfile.jupyterhub
+      args:
+        JUPYTERHUB_TAG: ${JUPYTERHUB_TAG}
+        CONTAINER_KEY_PATH: ${CONTAINER_KEY_PATH}
+        CONTAINER_CERT_PATH: ${CONTAINER_CERT_PATH}
+    restart: always
+    image: jupyterhub
+    container_name: jupyterhub
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:rw"
+      - "data:${DATA_VOLUME_CONTAINER}"
+      - "${HOST_CERT_PATH}:${CONTAINER_CERT_PATH}:ro"
+      - "${HOST_KEY_PATH}:${CONTAINER_KEY_PATH}:ro"
+
+    ports:
+      - "443:443"
+    links:
+      - hub-db
+    environment:
+      OAUTH2_TOKEN_URL: ${OAUTH2_TOKEN_URL}
+      OAUTH2_AUTHORIZE_URL: ${OAUTH2_AUTHORIZE_URL}
+      OAUTH2_USERDATA_URL: ${OAUTH2_USERDATA_URL}
+      OAUTH_CALLBACK_URL: ${OAUTH_CALLBACK_URL}
+      CLIENT_ID: ${CLIENT_ID}
+      CLIENT_SECRET: ${CLIENT_SECRET}
+      PYIRON_BASE: ${PYIRON_BASE}
+      PYIRON_ATOMISTIC: ${PYIRON_ATOMISTIC}
+      PYIRON_CONTINUUM: ${PYIRON_CONTINUUM}
+      MEM_LIMIT: ${MEM_LIMIT}
+      CPU_LIMIT: ${CPU_LIMIT}
+      ADMIN_USER: ${ADMIN_USER}
+      DOCKER_NETWORK_NAME: ${DOCKER_NETWORK_NAME}
+      DOCKER_NOTEBOOK_IMAGE: ${LOCAL_NOTEBOOK_IMAGE}
+      DOCKER_NOTEBOOK_DIR: ${DOCKER_NOTEBOOK_DIR}
+      DOCKER_SPAWN_CMD: ${DOCKER_SPAWN_CMD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_HOST: hub-db
+    env_file:
+      - secrets/postgres.env
+      - secrets/oauth.env
+    command: >
+      jupyterhub -f /srv/jupyterhub/jupyterhub_config.py
+
+volumes:
+  data:
+    external:
+      name: ${DATA_VOLUME_HOST}
+  db:
+    external:
+      name: ${DB_VOLUME_HOST}
+
+networks:
+  default:
+    external:
+      name: ${DOCKER_NETWORK_NAME}
+
