@@ -20,15 +20,8 @@ services:
   hub:
     depends_on:
       - hub-db
-    build:
-      context: .
-      dockerfile: Dockerfile.jupyterhub
-      args:
-        JUPYTERHUB_TAG: ${JUPYTERHUB_TAG}
-        CONTAINER_KEY_PATH: ${CONTAINER_KEY_PATH}
-        CONTAINER_CERT_PATH: ${CONTAINER_CERT_PATH}
+    image: pmd-jupyterhub:2021-03-12
     restart: always
-    image: jupyterhub
     container_name: jupyterhub
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:rw"
