@@ -8,6 +8,7 @@ with open(".env","a+") as env_file:
             for key2 in list(data[key1].keys()):
                 env_file.write(key2+"="+data[key1][key2]+"\n")
 
-os.system("make notebook_images")
-os.system("make build")
+os.system("docker network create jupyterhub-network")
+os.system("docker volume create jupyterhub-data")
+os.system("docker volume create jupyterhub-db-data")
 os.system("docker-compose up -d")
