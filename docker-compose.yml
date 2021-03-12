@@ -6,7 +6,7 @@ version: "2"
 
 services:
   hub-db:
-    image: postgres:9.5
+    image: postgres:9.5@sha256:ee604a9025ec864da512736f765ae714112a77ffc39d762c76b67ca0f8597e9e
     container_name: jupyterhub-db
     restart: always
     environment:
@@ -20,7 +20,7 @@ services:
   hub:
     depends_on:
       - hub-db
-    image: pmd-jupyterhub:2021-03-12
+    image: materialdigital/pyiron-jhub:2021-03-12@sha256:4a3af95fc60d5ad0ac6331721a48271b4f2a4dc3ef2d378c0c06a60a2f3a0831
     restart: always
     container_name: jupyterhub
     volumes:
