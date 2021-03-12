@@ -6,7 +6,7 @@ version: "2"
 
 services:
   hub-db:
-    image: postgres:9.5
+    image: postgres:9.5@sha256:ee604a9025ec864da512736f765ae714112a77ffc39d762c76b67ca0f8597e9e
     container_name: jupyterhub-db
     restart: always
     environment:
@@ -20,15 +20,8 @@ services:
   hub:
     depends_on:
       - hub-db
-    build:
-      context: .
-      dockerfile: Dockerfile.jupyterhub
-      args:
-        JUPYTERHUB_TAG: ${JUPYTERHUB_TAG}
-        CONTAINER_KEY_PATH: ${CONTAINER_KEY_PATH}
-        CONTAINER_CERT_PATH: ${CONTAINER_CERT_PATH}
+    image: materialdigital/pyiron-jhub:2021-03-12@sha256:4a3af95fc60d5ad0ac6331721a48271b4f2a4dc3ef2d378c0c06a60a2f3a0831
     restart: always
-    image: jupyterhub
     container_name: jupyterhub
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:rw"
