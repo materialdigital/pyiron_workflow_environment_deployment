@@ -40,8 +40,8 @@ As an infrastructure, the deployment requires:
 - `CPU_LIMIT`: The limiting amount of VCPU per user
 - `ADMIN_USER`: The username of jupyterhub admin 
 
-2) run the `create_hub.py` script.  
-3) run docker-compose script via `docker-compose up -d`
+3) run the `create_hub.py` script.  
+4) run docker-compose script via `docker-compose up -d`
 
 
 ### HPC connection (will be added soon)  
