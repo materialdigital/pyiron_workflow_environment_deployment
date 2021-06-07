@@ -1,0 +1,25 @@
+{
+    "build": {
+        "HOST_KEY_PATH": "path/to/key",
+        "HOST_CERT_PATH": "path/to/cert",
+        "NGINX_NETWORK": "name of nginx network; external"
+    },
+    "pyiron": {
+        "OAUTH2_TOKEN_URL":"toke_url",
+        "OAUTH2_AUTHORIZE_URL":"AUTHORIZE_url",
+        "OAUTH2_USERDATA_URL":"USERDATA_url",
+        "OAUTH_CALLBACK_URL":"CALLBACK_url",
+        "CLIENT_ID":"id",
+        "CLIENT_SECRET":"secret",
+        "PYIRON_BASE":"base_image:tag",
+        "PYIRON_ATOMISTIC":"atomistic_image:tag",
+        "PYIRON_CONTINUUM":"continuum_image:tag",
+        "PYIRON_EXPERIMENTAL":"experimental_image:tag",
+        "MEM_LIMIT":"2G",
+        "CPU_LIMIT":"1",
+        "ADMIN_USER":"user_name"
+    },
+    "shared" :{
+        "POSTGRES_PASSWORD":"password"
+    }
+}
