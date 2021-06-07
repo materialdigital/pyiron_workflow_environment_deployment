@@ -19,9 +19,12 @@ As an infrastructure, the deployment requires:
 - The users' resources on the server should be proportional to the number of users (~2GB of RAM, 2VCPU, 10GB of storage per users)
 
 ### Assumptions
-- For the authentication of the users, keycloak is assumed as the authentication provider. Therefore, a client id and secret is needed.
+- For the authentication of the users, keycloak is assumed as the authentication provider. Therefore, a client id and secret are needed.
 - Here, it is assumed that all the jobs are run on the same server as the jupyterhub.
 - The configuration of the hostnames is assumed to be done separately by the admin, e.g. creating the A-record, etc
+
+### pyiron docker images  
+pyiron offers various docker images corresponding to its modules, atomistics, continuum, md, ... . The docker images are available on docker hub: [https://hub.docker.com/u/pyiron](https://hub.docker.com/u/pyiron), and the corresponding dockerfiles can also be found via [https://github.com/pyiron/docker-stacks](https://github.com/pyiron/docker-stacks).   
 
 ### The process of the deployment
 1) cloning the current git repository .
@@ -37,7 +40,7 @@ As an infrastructure, the deployment requires:
 - `CLIENT_SECRET`: The secret for the client, provided from the Keycloak instance 
 - `PYIRON_BASE`: the relavant information of pyiron_base image in the form of `image_name:tag`
 - `PYIRON_ATOMISTIC`:the relavant information of pyiron_atomistics image in the form of `image_name:tag`
-- `PYIRON_CONTINUUM`:the relavant information of pyiron_continuum image in the form of `image_name:tag`
+- `PYIRON_CONTINUUM`:the relavant information of pyiron_continuum image in the form of `image_name:tag`.
 - `PYIRON_EXPERIMENTAL`:the relavant information of pyiron_experimental image in the form of `image_name:tag`
 - `MEM_LIMIT`: The limiting amount of RAM per user
 - `CPU_LIMIT`: The limiting amount of VCPU per user
@@ -84,7 +87,7 @@ As an infrastructure, the deployment requires:
 import json
 import os
 
-f = open('auto_config.json',)
+f = open('config.json',)
 config_data = json.load(f)
 
 for env_file_name in config_data.keys():
