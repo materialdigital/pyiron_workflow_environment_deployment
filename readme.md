@@ -104,26 +104,6 @@ for env_file_name in config_data.keys():
             lines = [f'{key}={value}' for key, value in config_data[env_file_name].items()]
             print(f"### Writing {env_file_name}")
             env_file.writelines(lines)
-try:
-    if 'PYIRON_BASE' in config_data['pyiron']:
-        image = config_data['pyiron']['PYIRON_BASE']
-        os.system(f'docker pull {image}')
-
-    if 'PYIRON_ATOMISTIC' in config_data['pyiron']:
-        image = config_data['pyiron']['PYIRON_ATOMISTIC']
-        os.system(f'docker pull {image}')
-    
-    if 'PYIRON_CONTINUUM' in config_data['pyiron']:
-        image = config_data['pyiron']['PYIRON_CONTINUUM']
-        os.system(f'docker pull {image}')
-
-    if 'PYIRON_EXPERIMENTAL' in config_data['pyiron']:
-        image = config_data['pyiron']['PYIRON_EXPERIMENTAL']
-        os.system(f'docker pull {image}')
-    
-except Exception as err_msg:
-    print(f"pulling the docker images failed: {err_msg}")
-
 ```
 
 **`docker-compose.yml`**
