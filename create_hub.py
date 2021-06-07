@@ -2,7 +2,7 @@
 import json
 import os
 
-f = open('auto_config.json',)
+f = open('config.json',)
 config_data = json.load(f)
 
 for env_file_name in config_data.keys():
