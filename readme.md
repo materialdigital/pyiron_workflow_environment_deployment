@@ -26,7 +26,12 @@ As an infrastructure, the deployment requires:
 In the configuration file `config.json`, it is needed to pass in a set of pyiron docker image. pyiron offers various docker images corresponding to its modules, atomistics, continuum, md, ... . The docker images are available on docker hub: [https://hub.docker.com/u/pyiron](https://hub.docker.com/u/pyiron), and the corresponding dockerfiles can also be found via [https://github.com/pyiron/docker-stacks](https://github.com/pyiron/docker-stacks).   
 
 ### Nginx configuration
-For the Nginx reverse proxy, you need to provide a configuration file, e.g. `pyiron.conf`. A template of such file is provided in the repository under `repo_path/nginx/pyiron.conf`
+For the Nginx reverse proxy, you need to provide a configuration file, e.g. `pyiron.conf`. A template of such file is provided in the repository under `repo_path/nginx/pyiron.conf`  
+After adding the domain, and the path to the SSL certificates and key (as described [here](https://hackmd.io/@materialdigital/H1t3_GQ9O)), you should copy it to the nginx directory:
+```bash
+cp nginx/pyiron.conf ../data/nginx/
+```
+Of course, here it is assumed that the PMD-S core repo is the parent directory of the pyiron deployment directory.
 
 ### Adding pyiron client to Keycloak
 For configuring the hub to authenticate the users via keycloak, you need to create a client in the keycloak instance. You can create the client via the following steps:
