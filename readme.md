@@ -44,7 +44,12 @@ For configuring the hub to authenticate the users via keycloak, you need to crea
 For configuring pyiron, you need the keycloak domain, the realm, the client id, and the client secret.
 
 ### The process of the deployment
-1) cloning the current git repository .
+It is assumed that the current working directory is the root of [PMD-S core repository](https://github.com/materialdigital/pmd-server)
+1) cloning the current git repository.
+   ```bash
+   git clone https://github.com/materialdigital/pyiron_workflow_environment_deployment.git pyiron/
+   cd pyiron
+   ```
 2) Providing the values for the keys in the `config.json` file. The keys are:
 - `OAUTH2_TOKEN_URL`: Keycloak Tocken URL; here you need only to change the domain and the realm
 - `OAUTH2_AUTHORIZE_URL`:Keycloak authorize URL; here you need only to change the domain and the realm
@@ -61,12 +66,20 @@ For configuring pyiron, you need the keycloak domain, the realm, the client id, 
 - `ADMIN_USER`: The username of jupyterhub admin, this username should be consistent with the username in the keycloak instance 
 - `POSTGRES_PASSWORD`: A password for the postgres database
 
-3) create the required external docker network, `jupyterhub_network` via: 
+3) run the `config.py` script from the pmd-server parent directory.
+   - in the case that python3 is installed on the host OS:
+      ```bash
+       python3 ../scripts/configure.py
+      ```
+   - in the case of no python3 installation on the host OS:
+      ```bash
+       docker run --rm -v $PWD/:/tmp/ -v $PWD/../scripts/configure.py:/tmp/configure.py -w /tmp  python:3-alpine  python configure.py
+      ```
+4) run docker-compose script via
    ```bash
-   docker network create jupyterhub_network
+      docker-compose up -d
    ```
-4) run the `create_hub.py` script.  
-5) run docker-compose script via `docker-compose up -d`
+   
 
 ### HPC connection (will be added soon)  
 In principal, the pyiron docker containers can submit jobs to the cluster according to pyiron documentation in [here](https://pyiron.readthedocs.io/en/latest/source/installation.html#submit-to-remote-hpc).
