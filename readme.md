@@ -61,7 +61,7 @@ For configuring pyiron, you need the keycloak domain, the realm, the client id, 
 - `ADMIN_USER`: The username of jupyterhub admin, this username should be consistent with the username in the keycloak instance 
 - `POSTGRES_PASSWORD`: A password for the postgres database
 
-3) create `jupyterhub_network` via: 
+3) create the required external docker network, `jupyterhub_network` via: 
    ```bash
    docker network create jupyterhub_network
    ```
