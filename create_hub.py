@@ -12,7 +12,7 @@ if os.path.exists(static_path):
         env_file_name_plus_ext = env_file_name+'.env'
         env_path = os.path.join(cwd, env_file_name_plus_ext)
         with open(env_path, "w") as env_file:
-            lines = [f'{key}={value}' for key, value in static_data[env_file_name].items()]
+            lines = [f'{key}={value}\n' for key, value in static_data[env_file_name].items()]
             print(f"### Writing {env_file_name}")
             env_file.writelines(lines)
 
@@ -30,6 +30,6 @@ for env_file_name in config_data.keys():
             env_file.writelines(lines)
     else:
         with open(env_path, "w") as env_file:
-            lines = [f'{key}={value}' for key, value in config_data[env_file_name].items()]
+            lines = [f'{key}={value}\n' for key, value in config_data[env_file_name].items()]
             print(f"### Writing {env_file_name}")
             env_file.writelines(lines)
