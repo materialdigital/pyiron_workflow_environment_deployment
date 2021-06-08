@@ -1,11 +1,11 @@
 {
     "pyiron": {
-        "OAUTH2_TOKEN_URL":"https://<keycloak_domain>/auth/realms/<realm>/protocol/openid-connect/token",
-        "OAUTH2_AUTHORIZE_URL":"https://<keycloak_domain>/auth/realms/<realm>/protocol/openid-connect/auth",
-        "OAUTH2_USERDATA_URL":"https://<keycloak_domain>/auth/realms/master/protocol/openid-connect/userinfo",
-        "OAUTH_CALLBACK_URL":"https://<pyiron_domain>/hub/oauth_callback",
-        "CLIENT_ID":"id",
-        "CLIENT_SECRET":"secret",
+        "OAUTH2_TOKEN_URL": "https://<keycloak_domain>/auth/realms/<realm>/protocol/openid-connect/token",
+        "OAUTH2_AUTHORIZE_URL": "https://<keycloak_domain>/auth/realms/<realm>/protocol/openid-connect/auth",
+        "OAUTH2_USERDATA_URL": "https://<keycloak_domain>/auth/realms/<realm>/protocol/openid-connect/userinfo",
+        "OAUTH_CALLBACK_URL": "https://<pyiron_domain>/hub/oauth_callback",
+        "CLIENT_ID": "client_id",
+        "CLIENT_SECRET": "client_secret",
         "PYIRON_BASE":"base_image:tag, e.g. pyiron/base:2021-06-04",
         "PYIRON_ATOMISTIC":"atomistic_image:tag , e.g. pyiron/pyiron:2021-06-04",
         "PYIRON_CONTINUUM":"continuum_image:tag, e.g. pyiron/continuum:2021-06-04",
