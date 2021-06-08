@@ -4,9 +4,8 @@ This repository provides the configuration files, needed for the deployment of a
 ## Content of the repository
 | File | Description |
 | ----------------- | ----------- |
-|`config.json` | a json file containing the configurable environment variables: keycloak client details, name of pyiron docker images, users' resources, and Postgres database Password |
+| `config.json` | a json file containing the configurable environment variables: keycloak client details, name of pyiron docker images, users' resources, and Postgres database Password |
 | `static.json` | a json file containing the non-configurable environment variables |
-| `create_hub.py` | the python script which appends the given key-value pairs in the `config.json` file, as environmental variable into `pyiron.env`, `shared.env`. |
 | `nginx/pyiron.conf` | A template of the configuration file for the Nginx reverse proxy |
 | `docker-compose.yml` | the compose file, which runs jupyterhub and its Postgres database services. |
    
@@ -44,7 +43,7 @@ For configuring the hub to authenticate the users via keycloak, you need to crea
 For configuring pyiron, you need the keycloak domain, the realm, the client id, and the client secret.
 
 ### The process of the deployment
-It is assumed that the current working directory is the root of [PMD-S core repository](https://github.com/materialdigital/pmd-server)
+It is assumed that the current working directory is the root of [PMD-S core repository](https://github.com/materialdigital/pmd-server).
 1) cloning the current git repository.
    ```bash
    git clone https://github.com/materialdigital/pyiron_workflow_environment_deployment.git pyiron/
