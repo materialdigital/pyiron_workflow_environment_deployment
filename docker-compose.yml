@@ -10,7 +10,7 @@ services:
     volumes:
       - "db:/var/lib/postgresql/data"
     networks:
-      - internal
+      - jupyterhub-network
 
   hub:
     depends_on:
@@ -22,10 +22,6 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:rw"
       - "data:/data"
       - "user_auth_hook.py:user_auth_hook.py:ro"
-      - "${HOST_CERT_PATH}:/srv/jupyterhub/secrets/jupyterhub.crt:ro"
-      - "${HOST_KEY_PATH}:/srv/jupyterhub/secrets/jupyterhub.key:ro"
-    ports:
-      - "443:443"
     links:
       - hub-db
     env_file:
@@ -33,11 +29,10 @@ services:
       - pyiron.env
     environment:
       POSTGRES_HOST: hub-db
-    command: >
-      jupyterhub -f /srv/jupyterhub/jupyterhub_config.py
+    command: /bin/bash -c "jupyterhub -f /srv/jupyterhub/jupyterhub_config.py && jupyterhub upgrade-db"
     networks:
-      - internal
-      - pmd-server_nginx-net
+      - jupyterhub-network
+      - proxy-net
 
 volumes:
   data:
@@ -48,10 +43,8 @@ volumes:
       driver: local
 
 networks:
-  pmd-server_nginx-net:
+  proxy-net:
     external: true
-    name: ${NGINX_NETWORK}
-  internal:
-    name: jupyterhub-network
-    driver: bridge
-
+    name: pmd-reverse-proxy-net
+  jupyterhub-network:
+    external: true
