@@ -15,17 +15,12 @@ services:
   hub:
     depends_on:
       - hub-db
-    image: materialdigital/pyiron-jhub:2021-06-07@sha256:4a3af95fc60d5ad0ac6331721a48271b4f2a4dc3ef2d378c0c06a60a2f3a0831
+    image: materialdigital/pyiron-jhub:2021-06-08@sha256:10c188ff40f546a08de523c87e1cacea55b18c52ed0c1619489c9f2bafc04b79
     restart: always
     container_name: jupyterhub
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:rw"
       - "data:/data"
-      - "user_auth_hook.py:user_auth_hook.py:ro"
-      - "${HOST_CERT_PATH}:/srv/jupyterhub/secrets/jupyterhub.crt:ro"
-      - "${HOST_KEY_PATH}:/srv/jupyterhub/secrets/jupyterhub.key:ro"
-    ports:
-      - "443:443"
     links:
       - hub-db
     env_file:
@@ -33,11 +28,10 @@ services:
       - pyiron.env
     environment:
       POSTGRES_HOST: hub-db
-    command: >
-      jupyterhub -f /srv/jupyterhub/jupyterhub_config.py
+    command: /bin/bash -c "jupyterhub -f /srv/jupyterhub/jupyterhub_config.py && jupyterhub upgrade-db"
     networks:
       - internal
-      - pmd-server_nginx-net
+      - proxy-net
 
 volumes:
   data:
@@ -48,10 +42,8 @@ volumes:
       driver: local
 
 networks:
-  pmd-server_nginx-net:
+  proxy-net:
     external: true
-    name: ${NGINX_NETWORK}
+    name: pmd-reverse-proxy-net
   internal:
     name: jupyterhub-network
-    driver: bridge
-
