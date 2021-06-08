@@ -10,7 +10,7 @@ services:
     volumes:
       - "db:/var/lib/postgresql/data"
     networks:
-      - jupyterhub-network
+      - internal
 
   hub:
     depends_on:
@@ -30,7 +30,7 @@ services:
       POSTGRES_HOST: hub-db
     command: /bin/bash -c "jupyterhub -f /srv/jupyterhub/jupyterhub_config.py && jupyterhub upgrade-db"
     networks:
-      - jupyterhub-network
+      - internal
       - proxy-net
 
 volumes:
@@ -45,5 +45,5 @@ networks:
   proxy-net:
     external: true
     name: pmd-reverse-proxy-net
-  jupyterhub-network:
-    external: true
+  internal:
+    name: jupyterhub-network
