@@ -1,5 +1,5 @@
 {
-    "pyiron": {
+    "pyiron.env": {
         "OAUTH2_TOKEN_URL": "https://<keycloak_domain>/auth/realms/<realm>/protocol/openid-connect/token",
         "OAUTH2_AUTHORIZE_URL": "https://<keycloak_domain>/auth/realms/<realm>/protocol/openid-connect/auth",
         "OAUTH2_USERDATA_URL": "https://<keycloak_domain>/auth/realms/<realm>/protocol/openid-connect/userinfo",
@@ -14,7 +14,7 @@
         "CPU_LIMIT":"1",
         "ADMIN_USER":"user_name"
     },
-    "shared" :{
+    "shared.env" :{
         "POSTGRES_PASSWORD":"password"
     }
 }

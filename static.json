@@ -1,5 +1,5 @@
 {
-  "pyiron": {
+  "pyiron.env": {
     "DOCKER_MACHINE_NAME": "jupyterhub",
     "DOCKER_NOTEBOOK_IMAGE": "pyiron/pyiron:latest",
     "LOCAL_NOTEBOOK_IMAGE": "pyiron/pyiron:latest",
@@ -9,7 +9,7 @@
     "SSL_KEY": "/srv/jupyterhub/secrets/jupyterhub.key",
     "SSL_CERT": "/srv/jupyterhub/secrets/jupyterhub.crt"
   },
-  "shared": {
+  "shared.env": {
     "POSTGRES_DB": "jupyterhub",
     "PGDATA": "/var/lib/postgresql/data"
   }
