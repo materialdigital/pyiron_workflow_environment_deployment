@@ -33,6 +33,27 @@ services:
       - internal
       - proxy-net
 
+microservice_dbdocker:
+    build: ./microservice_dbdocker
+    depends_on:
+      - mongodb
+    #restart: always
+    command: gunicorn -w 1 --timeout 120 -b :27777 wsgi:microservice
+    ports:
+      - "${EXTERNAL_IP:-127.0.0.1}:27777:27777"
+    networks:
+      - default
+  mongodb:
+    image: mongo:4.2
+    #restart: always
+    command: mongod --dbpath /data/db
+    volumes:
+      - dbdocker:/data/db
+    #ports:
+    #  - "${EXTERNAL_IP:-127.0.0.1}:27018:27017"
+    networks:
+      - default
+
 volumes:
   data:
       name: jupyterhub-data
